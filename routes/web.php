@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\InvoiceDownload;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
+Route::get('/invoice/{invoiceId}/download', InvoiceDownload::class)->name('invoice-download');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
