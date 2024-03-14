@@ -4,18 +4,34 @@ namespace App\Livewire;
 
 use App\Models\Invoice;
 use Livewire\Component;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Attributes\Layout;
-use Spatie\Browsershot\Browsershot;
 
 #[Layout('layouts.guest')]
 class InvoiceDownload extends Component
 {
+    public $invoices;
+
+    public function mount()
+    {
+        $this->invoices = Invoice::all();
+    }
+
+    public function download()
+    {
+        $data = [
+            'invoices' => $this->invoices
+        ];
+
+        $pdf = Pdf::loadView('invoice-download', $data);
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'invoice.pdf');
+    }
+
     public function render()
     {
-        $html = view('livewire.invoice-download', [
-            'invoices' => Invoice::with(['items', 'customer'])->get(),
-        ])->render();
-
-        return 'Done';
+        return view('livewire.invoice-download');
     }
 }
