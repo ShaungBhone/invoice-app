@@ -4,8 +4,10 @@ namespace App\Livewire;
 
 use App\Models\Invoice;
 use Livewire\Component;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Attributes\Layout;
+use Spatie\LaravelPdf\Facades\Pdf;
+use Spatie\Browsershot\Browsershot;
+use Illuminate\Support\Facades\Storage;
 
 #[Layout('layouts.guest')]
 class InvoiceDownload extends Component
@@ -19,15 +21,21 @@ class InvoiceDownload extends Component
 
     public function download()
     {
-        $data = [
+        $html = view('invoice-download', [
             'invoices' => $this->invoices
-        ];
+        ])->render();
 
-        $pdf = Pdf::loadView('invoice-download', $data);
+        $fileName = 'example.pdf';
+        $filePath = storage_path('app/public/' . $fileName);
 
-        return response()->streamDownload(function () use ($pdf) {
-            echo $pdf->stream();
-        }, 'invoice.pdf');
+        Browsershot::html($html)
+            ->setNodeBinary('/usr/bin/node')
+            ->setNpmBinary('/usr/bin/npm')
+            ->save($filePath);
+
+        Storage::disk('public')->put($fileName, file_get_contents($filePath));
+
+        return 'done';
     }
 
     public function render()
