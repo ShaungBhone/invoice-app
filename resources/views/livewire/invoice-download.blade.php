@@ -33,12 +33,20 @@
             </div>
 
             <!-- Grid -->
-            <div class="mt-5 sm:mt-10 flex justify-end">
+            <div class="mt-5 sm:mt-10 flex justify-between">
                 <!-- End Col -->
+                <div>
+                    <span class="block text-xs uppercase text-gray-500">Invoice No:</span>
+                    <span class="block text-sm font-medium text-gray-800 dark:text-gray-200">
+                        {{ $invoice->number }}
+                    </span>
+                </div>
 
                 <div>
                     <span class="block text-xs uppercase text-gray-500">Date paid:</span>
-                    <span class="block text-sm font-medium text-gray-800 dark:text-gray-200">April 22, 2020</span>
+                    <span class="block text-sm font-medium text-gray-800 dark:text-gray-200">
+                        {{ $invoice->invoice_date }}
+                    </span>
                 </div>
             </div>
             <!-- End Grid -->
@@ -48,78 +56,26 @@
                 <div class="hidden sm:grid sm:grid-cols-5">
                     <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">Item</div>
                     <div class="text-start text-xs font-medium text-gray-500 uppercase">Qty</div>
-                    <div class="text-start text-xs font-medium text-gray-500 uppercase">Rate</div>
-                    <div class="text-end text-xs font-medium text-gray-500 uppercase">Amount</div>
+                    <div class="sm:col-span-2 text-end text-xs font-medium text-gray-500 uppercase">Amount</div>
                 </div>
 
                 <div class="hidden sm:block border-b border-gray-200 dark:border-gray-700"></div>
 
                 <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                    <div class="col-span-full sm:col-span-2">
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Item</h5>
-                        <p class="font-medium text-gray-800 dark:text-gray-200">Design UX and UI</p>
-                    </div>
-                    <div>
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Qty</h5>
-                        <p class="text-gray-800 dark:text-gray-200">1</p>
-                    </div>
-                    <div>
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Rate</h5>
-                        <p class="text-gray-800 dark:text-gray-200">5</p>
-                    </div>
-                    <div>
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Amount</h5>
-                        <p class="sm:text-end text-gray-800 dark:text-gray-200">$500</p>
-                    </div>
-                </div>
-
-                <div class="sm:hidden border-b border-gray-200 dark:border-gray-700"></div>
-
-                <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                    <div class="col-span-full sm:col-span-2">
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Item</h5>
-                        <p class="font-medium text-gray-800 dark:text-gray-200">Web project</p>
-                    </div>
-                    <div>
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Qty</h5>
-                        <p class="text-gray-800 dark:text-gray-200">1</p>
-                    </div>
-                    <div>
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Rate</h5>
-                        <p class="text-gray-800 dark:text-gray-200">24</p>
-                    </div>
-                    <div>
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Amount</h5>
-                        <p class="sm:text-end text-gray-800 dark:text-gray-200">$1250</p>
-                    </div>
-                </div>
-
-                <div class="sm:hidden border-b border-gray-200 dark:border-gray-700"></div>
-
-                <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                    <div class="col-span-full sm:col-span-2">
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Item</h5>
-                        <p class="font-medium text-gray-800 dark:text-gray-200">SEO</p>
-                    </div>
-                    <div>
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Qty</h5>
-                        <p class="text-gray-800 dark:text-gray-200">1</p>
-                    </div>
-                    <div>
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Rate</h5>
-                        <p class="text-gray-800 dark:text-gray-200">6</p>
-                    </div>
-                    <div>
-                        <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Amount</h5>
-                        <p class="sm:text-end text-gray-800 dark:text-gray-200">$2000</p>
-                    </div>
-                </div>
-                <div class="flex justify-end">
-                    <div>
-                        <span class="block text-xs uppercase text-gray-500">Total Amount</span>
-                        <span class="mt-1 block text-sm font-medium text-gray-800 dark:text-gray-200">5000
-                            mmk</span>
-                    </div>
+                    @foreach ($invoice->items as $item)
+                        <div class="sm:col-span-2">
+                            <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Item</h5>
+                            <p class="font-medium text-gray-800 dark:text-gray-200">{{ $item->product->name }}</p>
+                        </div>
+                        <div>
+                            <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Qty</h5>
+                            <p class="text-gray-800 dark:text-gray-200">{{ $item->qty }}</p>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Amount</h5>
+                            <p class="sm:text-end text-gray-800 dark:text-gray-200">{{ $item->unit_price }}</p>
+                        </div>
+                    @endforeach
                 </div>
             </div>
             <!-- End Table -->
@@ -141,8 +97,8 @@
                 <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                     href="#" @click="window.print()">
                     <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
                         <polyline points="6 9 6 2 18 2 18 9" />
                         <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
                         <rect width="12" height="8" x="6" y="14" />
