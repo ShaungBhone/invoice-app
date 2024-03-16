@@ -203,11 +203,10 @@ class InvoiceResource extends Resource
                     ->disabled()
                     ->dehydrated()
                     ->afterStateUpdated(
-                        fn ($state, Forms\Set $set)
-                        => $set('total', $state['qty'] * $state['unit_price'])
+                        fn ($get, Forms\Set $set)
+                        => $set('total', $get['qty'] * $get['unit_price'])
                     )
                     ->numeric()
-                    // ->required()
                     ->columnSpan([
                         'md' => 2,
                     ]),
