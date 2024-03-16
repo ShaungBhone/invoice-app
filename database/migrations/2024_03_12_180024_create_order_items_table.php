@@ -23,7 +23,6 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->integer('qty');
             $table->decimal('unit_price', 10, 2);
-            $table->decimal('total', 10, 2);
             $table->timestamps();
         });
     }

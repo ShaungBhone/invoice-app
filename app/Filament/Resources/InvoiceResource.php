@@ -197,19 +197,6 @@ class InvoiceResource extends Resource
                     ->columnSpan([
                         'md' => 2,
                     ]),
-
-                Forms\Components\TextInput::make('total')
-                    ->label('Unit Price')
-                    ->disabled()
-                    ->dehydrated()
-                    ->afterStateUpdated(
-                        fn ($get, Forms\Set $set)
-                        => $set('total', $get['qty'] * $get['unit_price'])
-                    )
-                    ->numeric()
-                    ->columnSpan([
-                        'md' => 2,
-                    ]),
             ])
             ->defaultItems(1)
             ->hiddenLabel()
