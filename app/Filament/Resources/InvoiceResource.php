@@ -174,7 +174,7 @@ class InvoiceResource extends Resource
                     ->distinct()
                     ->disableOptionsWhenSelectedInSiblingRepeaterItems()
                     ->columnSpan([
-                        'md' => 4,
+                        'md' => 5,
                     ])
                     ->searchable(),
 
@@ -184,7 +184,7 @@ class InvoiceResource extends Resource
                     ->default(1)
                     ->reactive()
                     ->columnSpan([
-                        'md' => 2,
+                        'md' => 3,
                     ])
                     ->required(),
 

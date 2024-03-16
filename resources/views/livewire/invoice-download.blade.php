@@ -53,16 +53,16 @@
 
             <!-- Table -->
             <div class="mt-6 border border-gray-200 p-4 rounded-lg space-y-4 dark:border-gray-700">
-                <div class="hidden sm:grid sm:grid-cols-5">
-                    <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">Item</div>
-                    <div class="text-start text-xs font-medium text-gray-500 uppercase">Qty</div>
-                    <div class="sm:col-span-2 text-end text-xs font-medium text-gray-500 uppercase">Amount</div>
-                </div>
+                @foreach ($invoice->items as $item)
+                    <div class="hidden sm:grid sm:grid-cols-5">
+                        <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">Item</div>
+                        <div class="text-start text-xs font-medium text-gray-500 uppercase">Qty</div>
+                        <div class="sm:col-span-2 text-end text-xs font-medium text-gray-500 uppercase">Amount</div>
+                    </div>
 
-                <div class="hidden sm:block border-b border-gray-200 dark:border-gray-700"></div>
+                    <div class="hidden sm:block border-b border-gray-200 dark:border-gray-700"></div>
 
-                <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
-                    @foreach ($invoice->items as $item)
+                    <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
                         <div class="sm:col-span-2">
                             <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Item</h5>
                             <p class="font-medium text-gray-800 dark:text-gray-200">{{ $item->product->name }}</p>
@@ -75,25 +75,25 @@
                             <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">Amount</h5>
                             <p class="sm:text-end text-gray-800 dark:text-gray-200">{{ $item->unit_price }}</p>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+
+                    <div class="hidden sm:block border-b border-gray-200 dark:border-gray-700"></div>
+
+                    <div class="flex justify-end">
+                        <div>
+                            <span class="block text-xs uppercase text-gray-500">Total Amount</span>
+                            <span class="block text-end font-medium text-gray-800 dark:text-gray">
+                                {{ $item->total }}
+                            </span>
+                        </div>
+                    </div>
+                @endforeach
             </div>
+
             <!-- End Table -->
 
             <!-- Button -->
             <div class="mt-5 flex justify-end gap-x-2">
-                {{-- <a wire:click.prevent="download"
-                    class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-lg border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800"
-                    href="#">
-                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" x2="12" y1="15" y2="3" />
-                    </svg>
-                    Invoice PDF
-                </a> --}}
                 <a class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                     href="#" @click="window.print()">
                     <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"

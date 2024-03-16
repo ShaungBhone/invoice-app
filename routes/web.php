@@ -3,26 +3,7 @@
 use App\Livewire\InvoiceDownload;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::get('/invoice/{invoice}', InvoiceDownload::class)->name('invoice-download')->middleware('auth');
 
-Route::view('/', 'welcome');
-Route::get('/invoice/{invoice}', InvoiceDownload::class)->name('invoice-download');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
-
-require __DIR__.'/auth.php';
+Route::any('{query}', fn () => redirect('/admin'))->where('query', '.*');
+Route::get('/login', fn () => redirect('/admin'))->name('login');
