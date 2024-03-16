@@ -7,6 +7,7 @@ use Filament\Tables;
 use App\Models\Invoice;
 use App\Models\Product;
 use Filament\Forms\Form;
+use App\Models\OrderItem;
 use App\Enums\OrderStatus;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
@@ -84,6 +85,8 @@ class InvoiceResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('Generate')
+                    ->action(fn (Invoice $record) => redirect()->route('invoice-download', $record)),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -171,7 +174,7 @@ class InvoiceResource extends Resource
                     ->distinct()
                     ->disableOptionsWhenSelectedInSiblingRepeaterItems()
                     ->columnSpan([
-                        'md' => 5,
+                        'md' => 4,
                     ])
                     ->searchable(),
 
@@ -179,6 +182,7 @@ class InvoiceResource extends Resource
                     ->label('Quantity')
                     ->numeric()
                     ->default(1)
+                    ->reactive()
                     ->columnSpan([
                         'md' => 2,
                     ])
@@ -191,7 +195,21 @@ class InvoiceResource extends Resource
                     ->numeric()
                     ->required()
                     ->columnSpan([
-                        'md' => 3,
+                        'md' => 2,
+                    ]),
+
+                Forms\Components\TextInput::make('total')
+                    ->label('Unit Price')
+                    ->disabled()
+                    ->dehydrated()
+                    ->afterStateUpdated(
+                        fn ($state, Forms\Set $set)
+                        => $set('total', $state['qty'] * $state['unit_price'])
+                    )
+                    ->numeric()
+                    // ->required()
+                    ->columnSpan([
+                        'md' => 2,
                     ]),
             ])
             ->defaultItems(1)
