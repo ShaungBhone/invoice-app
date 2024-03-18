@@ -89,6 +89,7 @@ class InvoiceResource extends Resource
                 Tables\Actions\Action::make('Generate')
                     ->action(fn (Invoice $record) => redirect()->route('invoice-download', $record))
                     ->hidden(fn (Invoice $record): bool => $record->status === OrderStatus::Processing),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -109,6 +110,7 @@ class InvoiceResource extends Resource
         return [
             'index' => Pages\ListInvoices::route('/'),
             'create' => Pages\CreateInvoice::route('/create'),
+            'view' => Pages\ViewInvoice::route('/{record}'),
             'edit' => Pages\EditInvoice::route('/{record}/edit'),
         ];
     }

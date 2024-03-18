@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Invoice;
 use Closure;
+use App\Models\Invoice;
+use App\Enums\OrderStatus;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +17,7 @@ class StatusCheck
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Invoice::where('status', 'processing')) {
+        if (Invoice::where('status') === OrderStatus::Processing) {
             return response('Invoice is still processing', 403);
         }
 

@@ -37,14 +37,14 @@
             <div class="mt-5 sm:mt-10 flex justify-between">
                 <!-- End Col -->
                 <div>
-                    <span class="block text-xs uppercase text-gray-700">Invoice No:</span>
+                    <span class="block text-xs uppercase text-gray-700">Invoice No</span>
                     <span class="block text-sm font-medium text-gray-800">
                         {{ $invoice->number }}
                     </span>
                 </div>
 
                 <div>
-                    <span class="block text-xs uppercase text-gray-700">Date paid:</span>
+                    <span class="block text-xs uppercase text-gray-700">Date</span>
                     <span class="block text-sm font-medium text-gray-800">
                         {{ $invoice->invoice_date }}
                     </span>
