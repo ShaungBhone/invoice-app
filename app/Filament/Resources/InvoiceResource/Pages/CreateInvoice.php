@@ -20,7 +20,7 @@ class CreateInvoice extends CreateRecord
 
     protected function beforeCreate(): void
     {
-        if (Product::where('remaining_stock', '>=', 5)) {
+        if (Product::where('remaining_stock', '>=', 1)) {
             Notification::make()
                 ->warning()
                 ->title('You don\'t have an enough product quantity!')
