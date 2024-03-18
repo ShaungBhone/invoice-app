@@ -55,6 +55,8 @@ class ProductResource extends Resource
                                             ->form([
                                                 Forms\Components\TextInput::make('adding_stock')
                                                     ->label('Choose The Amount of Stock.')
+                                                    ->minValue(0)
+                                                    ->maxValue(100)
                                                     ->numeric()
                                                     ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
                                             ])

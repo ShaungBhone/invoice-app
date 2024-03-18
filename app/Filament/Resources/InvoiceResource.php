@@ -86,8 +86,10 @@ class InvoiceResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->hidden(fn (Invoice $record): bool => $record->status === OrderStatus::Delivered),
-                Tables\Actions\Action::make('Generate')
-                    ->action(fn (Invoice $record) => redirect()->route('invoice-download', $record))
+                Tables\Actions\Action::make('generate')
+                    ->button()
+                    ->url(fn (Invoice $record): string => route('invoice-download', $record))
+                    ->openUrlInNewTab()
                     ->hidden(fn (Invoice $record): bool => $record->status === OrderStatus::Processing),
                 Tables\Actions\ViewAction::make(),
             ])
@@ -165,7 +167,7 @@ class InvoiceResource extends Resource
             ->schema([
                 Forms\Components\Select::make('product_id')
                     ->label('Product')
-                    ->options(Product::query()->pluck('name', 'id'))
+                    ->options(Product::where('remaining_stock', '>', 0)->pluck('name', 'id'))
                     ->required()
                     ->reactive()
                     ->afterStateUpdated(
