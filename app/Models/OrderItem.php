@@ -25,7 +25,7 @@ class OrderItem extends Model
     public function total(): Attribute
     {
         return Attribute::make(
-            get: fn (): float => $this->qty * $this->unit_price
+            get: fn (): int => $this->qty * $this->unit_price
         );
     }
 }

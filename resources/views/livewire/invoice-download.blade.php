@@ -54,16 +54,16 @@
 
             <!-- Table -->
             <div class="mt-6 border border-gray-200 p-4 rounded-lg space-y-4">
+                <div class="hidden sm:grid sm:grid-cols-5">
+                    <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">အမျိုးအမည်</div>
+                    <div class="text-start text-xs font-medium text-gray-500 uppercase">ဦးရေ</div>
+                    <div class="text-start text-xs font-medium text-gray-500 uppercase">နှုန်း</div>
+                    <div class="text-end text-xs font-medium text-gray-500 uppercase">သင့်ငွေ</div>
+                </div>
+
+                <div class="hidden sm:block border-b border-gray-200"></div>
+
                 @foreach ($invoice->items as $item)
-                    <div class="hidden sm:grid sm:grid-cols-5">
-                        <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">အမျိုးအမည်</div>
-                        <div class="text-start text-xs font-medium text-gray-500 uppercase">ဦးရေ</div>
-                        <div class="text-start text-xs font-medium text-gray-500 uppercase">နှုန်း</div>
-                        <div class="text-end text-xs font-medium text-gray-500 uppercase">သင့်ငွေ</div>
-                    </div>
-
-                    <div class="hidden sm:block border-b border-gray-200"></div>
-
                     <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
                         <div class="col-span-full sm:col-span-2">
                             <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">အမျိုးအမည်</h5>
@@ -84,16 +84,16 @@
                     </div>
 
                     <div class="hidden sm:block border-b border-gray-200"></div>
-
-                    <div class="flex justify-end">
-                        <div>
-                            <span class="block text-xs uppercase text-gray-500">စုစုပေါင်း</span>
-                            <span class="block text-end font-medium text-gray-800">
-                                {{ $item->total }}
-                            </span>
-                        </div>
-                    </div>
                 @endforeach
+
+                <div class="flex justify-end">
+                    <div>
+                        <span class="block text-xs uppercase text-gray-500">စုစုပေါင်း</span>
+                        <span class="block text-end font-medium text-gray-800">
+                            {{ $invoice->items->sum('total') }}
+                        </span>
+                    </div>
+                </div>
             </div>
 
             <!-- End Table -->
