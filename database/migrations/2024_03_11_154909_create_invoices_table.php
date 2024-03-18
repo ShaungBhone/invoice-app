@@ -20,8 +20,7 @@ return new class extends Migration
                 ->nullOnDelete();
             $table->string('number', 32);
             $table->date('invoice_date');
-            $table->enum('status', ['new', 'processing', 'delivered', 'cancelled'])->default('new');
-            $table->text('notes')->nullable();
+            $table->enum('status', ['processing', 'delivered'])->default('processing');
             $table->timestamps();
         });
     }

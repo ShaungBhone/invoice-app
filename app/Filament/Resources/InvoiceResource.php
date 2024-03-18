@@ -151,9 +151,6 @@ class InvoiceResource extends Resource
                 ->inline()
                 ->options(OrderStatus::class)
                 ->required(),
-
-            Forms\Components\MarkdownEditor::make('notes')
-                ->columnSpan('full'),
         ];
     }
 
