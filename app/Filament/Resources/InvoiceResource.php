@@ -84,9 +84,11 @@ class InvoiceResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->hidden(fn (Invoice $record): bool => $record->status === OrderStatus::Delivered),
                 Tables\Actions\Action::make('Generate')
-                    ->action(fn (Invoice $record) => redirect()->route('invoice-download', $record)),
+                    ->action(fn (Invoice $record) => redirect()->route('invoice-download', $record))
+                    ->hidden(fn (Invoice $record): bool => $record->status === OrderStatus::Processing),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
