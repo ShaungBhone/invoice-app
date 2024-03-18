@@ -5,13 +5,13 @@
                 <h3 class="text-3xl font-semibold text-gray-800">
                     မဖြူလေး
                 </h3>
-                <p class="text-sm text-gray-500 mt-3">
+                <p class="text-sm text-gray-700 mt-3">
                     ကုန်မျိုးစုံးရောင်း၀ယ်ရေး
                 </p>
-                <p class="text-sm text-gray-500 mt-3">
+                <p class="text-sm text-gray-700 mt-3">
                     D-7၊ အမှတ် (၁) ဈေးကြီး၊ မော်လမြိုင်မြို
                 </p>
-                <div class="mt-5 flex items-center justify-between text-gray-500">
+                <div class="mt-5 flex items-center justify-between text-gray-700">
                     <div class="flex items-center">
                         <svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -37,14 +37,14 @@
             <div class="mt-5 sm:mt-10 flex justify-between">
                 <!-- End Col -->
                 <div>
-                    <span class="block text-xs uppercase text-gray-500">Invoice No:</span>
+                    <span class="block text-xs uppercase text-gray-700">Invoice No:</span>
                     <span class="block text-sm font-medium text-gray-800">
                         {{ $invoice->number }}
                     </span>
                 </div>
 
                 <div>
-                    <span class="block text-xs uppercase text-gray-500">Date paid:</span>
+                    <span class="block text-xs uppercase text-gray-700">Date paid:</span>
                     <span class="block text-sm font-medium text-gray-800">
                         {{ $invoice->invoice_date }}
                     </span>
@@ -55,10 +55,10 @@
             <!-- Table -->
             <div class="mt-6 border border-gray-200 p-4 rounded-lg space-y-4">
                 <div class="hidden sm:grid sm:grid-cols-5">
-                    <div class="sm:col-span-2 text-xs font-medium text-gray-500 uppercase">အမျိုးအမည်</div>
-                    <div class="text-start text-xs font-medium text-gray-500 uppercase">ဦးရေ</div>
-                    <div class="text-start text-xs font-medium text-gray-500 uppercase">နှုန်း</div>
-                    <div class="text-end text-xs font-medium text-gray-500 uppercase">သင့်ငွေ</div>
+                    <div class="sm:col-span-2 text-xs font-medium text-gray-700 uppercase">အမျိုးအမည်</div>
+                    <div class="text-start text-xs font-medium text-gray-700 uppercase">ဦးရေ</div>
+                    <div class="text-start text-xs font-medium text-gray-700 uppercase">နှုန်း</div>
+                    <div class="text-end text-xs font-medium text-gray-700 uppercase">သင့်ငွေ</div>
                 </div>
 
                 <div class="hidden sm:block border-b border-gray-200"></div>
@@ -66,19 +66,19 @@
                 @foreach ($invoice->items as $item)
                     <div class="grid grid-cols-3 sm:grid-cols-5 gap-2">
                         <div class="col-span-full sm:col-span-2">
-                            <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">အမျိုးအမည်</h5>
+                            <h5 class="sm:hidden text-xs font-medium text-gray-700 uppercase">အမျိုးအမည်</h5>
                             <p class="font-medium text-gray-800">{{ $item->product->name }}</p>
                         </div>
                         <div>
-                            <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">ဦးရေ</h5>
+                            <h5 class="sm:hidden text-xs font-medium text-gray-700 uppercase">ဦးရေ</h5>
                             <p class="text-gray-800">{{ $item->qty }}</p>
                         </div>
                         <div>
-                            <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">နှုန်း</h5>
+                            <h5 class="sm:hidden text-xs font-medium text-gray-700 uppercase">နှုန်း</h5>
                             <p class="text-gray-800">{{ $item->unit_price }}</p>
                         </div>
                         <div>
-                            <h5 class="sm:hidden text-xs font-medium text-gray-500 uppercase">သင့်ငွေ</h5>
+                            <h5 class="sm:hidden text-xs font-medium text-gray-700 uppercase">သင့်ငွေ</h5>
                             <p class="sm:text-end text-gray-800">{{ $item->total }}</p>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
 
                 <div class="flex justify-end">
                     <div>
-                        <span class="block text-xs uppercase text-gray-500">စုစုပေါင်း</span>
+                        <span class="block text-xs uppercase text-gray-700">စုစုပေါင်း</span>
                         <span class="block text-end font-medium text-gray-800">
                             {{ $invoice->items->sum('total') }}
                         </span>
