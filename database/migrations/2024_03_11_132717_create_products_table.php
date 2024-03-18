@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->string('number', 32)->unique();
             $table->integer('adding_stock')->default(0);
             $table->integer('remaining_stock')->default(0);
-            $table->decimal('price', 10, 2)->nullable();
-            $table->decimal('total', 10, 2)->nullable();
+            $table->integer('price')->nullable();
+            $table->integer('total')->nullable();
             $table->timestamps();
         });
     }

@@ -23,7 +23,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'number' => 'NO-' . $this->faker->unique()->randomNumber(6),
-            'price' => $this->faker->randomFloat(2, 100, 500),
+            'price' => $this->faker->randomNumber(6),
             'remaining_stock' => $this->faker->randomNumber(2),
         ];
     }

@@ -22,7 +22,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->integer('qty');
-            $table->decimal('unit_price', 10, 2);
+            $table->integer('unit_price');
             $table->timestamps();
         });
     }
