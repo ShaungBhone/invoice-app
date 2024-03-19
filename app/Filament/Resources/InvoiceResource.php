@@ -169,11 +169,6 @@ class InvoiceResource extends Resource
                     ->label('Product')
                     ->options(Product::where('remaining_stock', '>', 0)->pluck('name', 'id'))
                     ->required()
-                    ->reactive()
-                    ->afterStateUpdated(
-                        fn ($state, Forms\Set $set)
-                        => $set('unit_price', Product::find($state)?->price ?? 0)
-                    )
                     ->distinct()
                     ->disableOptionsWhenSelectedInSiblingRepeaterItems()
                     ->columnSpan([
@@ -193,8 +188,6 @@ class InvoiceResource extends Resource
 
                 Forms\Components\TextInput::make('unit_price')
                     ->label('Unit Price')
-                    ->disabled()
-                    ->dehydrated()
                     ->numeric()
                     ->required()
                     ->columnSpan([

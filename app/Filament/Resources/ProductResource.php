@@ -39,11 +39,6 @@ class ProductResource extends Resource
                                     ->maxLength(32)
                                     ->unique(Product::class, 'number', ignoreRecord: true),
 
-                                Forms\Components\TextInput::make('price')
-                                    ->numeric()
-                                    ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
-                                    ->required(),
-
                                 Forms\Components\TextInput::make('remaining_stock')
                                     ->numeric()
                                     ->disabled()
@@ -103,6 +98,7 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('remaining_stock')
+                    ->sortable()
                     ->color(fn ($record) => $record->remaining_stock > 5 ? 'primary' : 'danger')
                     ->label('Stock')
                     ->searchable(),

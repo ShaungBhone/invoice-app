@@ -18,6 +18,11 @@ class EditInvoice extends EditRecord
         ];
     }
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
     protected function afterSave(): void
     {
         if ($this->record->status == OrderStatus::Delivered) {

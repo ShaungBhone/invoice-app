@@ -18,17 +18,22 @@ class ViewInvoice extends ViewRecord
             ->schema([
                 Infolists\Components\Section::make()
                     ->schema([
-                        Infolists\Components\TextEntry::make('number'),
-                        Infolists\Components\TextEntry::make('invoice_date'),
-                        Infolists\Components\TextEntry::make('customer.name'),
-                        Infolists\Components\TextEntry::make('status'),
-                        Infolists\Components\TextEntry::make('items.product.name')
-                            ->label('Product'),
-                        Infolists\Components\TextEntry::make('items.qty')
-                            ->label('Quantity'),
-                        Infolists\Components\TextEntry::make('items.unit_price')
-                            ->label('Unit Price'),
-                    ])->columns(2)
-            ]);
+                        Infolists\Components\Group::make()
+                            ->schema([
+                                Infolists\Components\TextEntry::make('number'),
+                                Infolists\Components\TextEntry::make('invoice_date'),
+                                Infolists\Components\TextEntry::make('customer.name'),
+                                Infolists\Components\TextEntry::make('status'),
+                            ])->columns(2),
+                        Infolists\Components\RepeatableEntry::make('items')
+                            ->schema([
+                                Infolists\Components\TextEntry::make('product.name'),
+                                Infolists\Components\TextEntry::make('qty'),
+                                Infolists\Components\TextEntry::make('unit_price')
+                                    ->columnSpan(2),
+                            ])
+                            ->grid(2),
+                    ])->columnSpan(2)
+            ])->columns(3);
     }
 }
