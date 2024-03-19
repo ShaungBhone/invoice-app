@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\InvoiceResource\Pages;
 
-use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 use App\Filament\Resources\InvoiceResource;
 use Filament\Infolists;
