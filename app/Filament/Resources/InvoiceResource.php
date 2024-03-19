@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Tables;
 use App\Models\Invoice;
@@ -83,14 +84,26 @@ class InvoiceResource extends Resource
                 Tables\Columns\TextColumn::make('invoice_date')
             ])
             ->filters([
-                //
-            ])
-            ->headerActions([
-                Tables\Actions\ExportAction::make()
-                    ->exporter(InvoiceExporter::class)
-                    ->formats([
-                        ExportFormat::Xlsx,
+                Tables\Filters\Filter::make('invoice_date')
+                    ->form([
+                        Forms\Components\DatePicker::make('created_from')
+                            ->native(false)
+                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
+                        Forms\Components\DatePicker::make('created_until')
+                            ->native(false)
+                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
                     ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->whereDate('invoice_date', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'] ?? null,
+                                fn (Builder $query, $date): Builder => $query->whereDate('invoice_date', '<=', $date),
+                            );
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
@@ -103,6 +116,11 @@ class InvoiceResource extends Resource
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
+                Tables\Actions\ExportBulkAction::make()
+                    ->exporter(InvoiceExporter::class)
+                    ->formats([
+                        ExportFormat::Xlsx,
+                    ]),
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),

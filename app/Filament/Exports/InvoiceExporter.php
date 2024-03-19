@@ -18,7 +18,12 @@ class InvoiceExporter extends Exporter
                 ->label('ID'),
             ExportColumn::make('customer.name'),
             ExportColumn::make('number'),
-            // ExportColumn::make('items.product.name'),
+            ExportColumn::make('items.product.name')
+                ->label('Product Name'),
+            ExportColumn::make('items.qty')
+                ->label('Product Quanity'),
+            ExportColumn::make('items.unit_price')
+                ->label('Unit Price'),
             ExportColumn::make('invoice_date'),
             ExportColumn::make('created_at'),
             ExportColumn::make('updated_at'),
