@@ -18,8 +18,8 @@ class InvoiceExporter extends Exporter
                 ->label('ID'),
             ExportColumn::make('customer.name'),
             ExportColumn::make('number'),
+            // ExportColumn::make('items.product.name'),
             ExportColumn::make('invoice_date'),
-            ExportColumn::make('status'),
             ExportColumn::make('created_at'),
             ExportColumn::make('updated_at'),
         ];

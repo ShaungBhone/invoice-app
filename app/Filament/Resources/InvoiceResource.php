@@ -12,8 +12,10 @@ use App\Enums\OrderStatus;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Repeater;
+use App\Filament\Exports\InvoiceExporter;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Actions\Exports\Enums\ExportFormat;
 use App\Filament\Resources\InvoiceResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -82,6 +84,13 @@ class InvoiceResource extends Resource
             ])
             ->filters([
                 //
+            ])
+            ->headerActions([
+                Tables\Actions\ExportAction::make()
+                    ->exporter(InvoiceExporter::class)
+                    ->formats([
+                        ExportFormat::Xlsx,
+                    ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
